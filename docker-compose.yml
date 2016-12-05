@@ -1,0 +1,20 @@
+ version: "2"
+ services: 
+  web:
+   build: .
+   ports:
+    - "8888:8888"
+   entrypoint: ./start.sh 
+   depends_on:
+    - "db"
+   links:
+    - db
+  db:
+    restart: always
+    image: postgres:9.6
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=pgpass
+      - POSTGRES_DB=botdb
+      - POSTGRES_USER=botman
